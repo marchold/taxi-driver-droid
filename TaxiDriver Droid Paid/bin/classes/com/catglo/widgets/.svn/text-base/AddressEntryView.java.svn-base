@@ -1,0 +1,131 @@
+package com.catglo.widgets;
+
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import android.app.Activity;
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+
+import com.catglo.deliveryDatabase.*;
+import com.google.android.maps.GeoPoint;
+
+
+public class AddressEntryView extends ButtonPadView {
+	AddressSuggestior addressSuggestior;
+	Pattern			pattern;
+	private int		inputStage;
+	ArrayList<GeoPoint> addressLocations;
+	public GeoPoint selectedPoint;
+	
+	private void onSpace(){
+		switch (inputStage) {
+		case 0:
+			list.setVisibility(View.VISIBLE);
+			text.setText("Address - Street Name");
+			
+			break;
+		case 1:
+			list.setVisibility(View.VISIBLE);
+			text.setText("Address - Suffix");
+			final String[] sufixList = 
+			{ 
+				"Apt. ", "Suite.", "Ave", "St", "Pl", "Dr",
+				"N", "S","E", "W", "NW", "NE", "SW", "SE" 
+			};
+			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
+					android.R.layout.simple_dropdown_item_1line, sufixList);
+			setAdapter(adapter);
+			
+			inputStage = 2;
+			break;
+		}	
+	}
+	 
+	 
+
+	public AddressEntryView(final Context context, final AttributeSet attrs, DataBase dataBase) {
+		super(context, attrs);
+		inputStage = 0;
+		
+		addressSuggestior = new AddressSuggestior(context.getApplicationContext(),new Runnable(){public void run(){
+			list.post(new Runnable(){public void run(){
+				
+				ArrayAdapter<String> streets = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, addressSuggestior.addressList);
+				list.setAdapter(streets);
+				addressLocations = addressSuggestior.addressLocations;
+			}});
+		}},dataBase);
+		pattern = Pattern.compile("([0-9\\-\\#\\@\\*_]*\\s)(.*)");
+
+		setText(context.getString(R.string.AddressHouseNumber));
+		
+		edit.addTextChangedListener(new TextWatcher() {
+			public void afterTextChanged(final Editable s) {
+				addressSuggestior.lookup(s.toString());
+			}
+	
+			public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+			}
+
+			public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+			}
+
+		});
+		
+		
+		setOnKeyListener(new OnKeyListener(){
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction()==KeyEvent.ACTION_UP) {
+					if (keyCode == KeyEvent.KEYCODE_SPACE){
+						onSpace();
+					}
+				}
+				return false;
+			}}
+		);
+		
+		final ImageButton space = (ImageButton) numbers.findViewById(R.id.ButtonSpace);
+		space.setVisibility(View.VISIBLE);
+		space.setBackgroundColor(0);
+		space.setOnClickListener(new View.OnClickListener() {
+			public void onClick(final View v) {
+				press(-3);
+				onSpace();
+			}
+		});
+
+		final ImageButton abc = (ImageButton) numbers.findViewById(R.id.ButtonAbc);
+		abc.setVisibility(View.VISIBLE);
+		abc.setBackgroundColor(0);
+		abc.setOnClickListener(new View.OnClickListener() {
+			public void onClick(final View v) {
+				final InputMethodManager mgr = (InputMethodManager) ((Activity) context)
+						.getSystemService(Context.INPUT_METHOD_SERVICE);
+				// only will trigger it if no physical keyboard is open
+				mgr.showSoftInput(edit, InputMethodManager.SHOW_FORCED);// .SHOW_IMPLICIT)
+			}
+		});
+		
+		ArrayList<String> addressList = new ArrayList<String>();
+		dataBase.getAddressSuggestionsFor("",addressList);
+		ArrayAdapter<String> streets = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, addressList);
+		list.setAdapter(streets);
+				
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		super.onItemClick(arg0, arg1, arg2, arg3);
+		//selectedPoint = addressLocations.get(arg2);
+	}
+
+}

@@ -1,0 +1,8 @@
+ <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:orientation="horizontal"
+    android:layout_height="fill_parent" android:layout_width="wrap_content" android:id="@+id/relativeLayout1">
+         <com.catglo.widgets.AddressAutocomplete android:id="@+id/addressAutocomplete1"  android:layout_alignParentLeft="true" android:layout_height="wrap_content" android:layout_width="270dip"/>
+        <TextView android:text="@string/blank" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/idField" android:visibility="gone"></TextView>
+        <ImageButton android:id="@+id/imageButton1" android:src="@drawable/icon_plus" android:layout_width="wrap_content" android:layout_height="wrap_content"></ImageButton>
+    </LinearLayout>

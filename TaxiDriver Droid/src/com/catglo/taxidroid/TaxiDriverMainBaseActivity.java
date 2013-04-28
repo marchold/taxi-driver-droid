@@ -1,0 +1,299 @@
+package com.catglo.taxidroid;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.catglo.deliveryDatabase.DataBase;
+import com.catglo.deliveryDatabase.Order;
+import com.catglo.deliveryDatabase.StreetList;
+import com.catglo.deliveryDatabase.ZipCode;
+
+
+import com.catglo.taxidroid.OrderListView.DragListener;
+
+
+import com.google.android.maps.GeoPoint;
+
+public abstract class TaxiDriverMainBaseActivity extends TaxiDroidBaseActivity {
+	protected static final int			EDIT_ID							= 0;
+	protected static final int			DELETE_ID						= 1;
+	protected static final int			SETTINGS						= 2;
+	protected static final int			DIALOG_CONFIRM_NEW_SHIFT		= 3;
+	protected static final int			NEW_SHIFT						= 4;
+	protected static final int			DIALOG_CONFIRM_DELETE_RECORD	= 5;
+	protected static final int			TIP_STATS						= 6;
+	protected static final int			SMMARY							= 7;
+	protected static final int			DATABASE_MAINTAIN				= 8;
+	protected static final int			DIALOG_SETUP_AREA				= 9;
+	protected static final int			GET_USER_LOCATION				= 10;
+	protected static final int			VALIDATE_ADDRESS				= 11;
+	protected static final int			VALIDATE_ID						= 12;
+	protected static final int			ODO_READING						= 12;
+	protected static final int			CLOCK_IN_OUT					= 13;
+	protected static final int			BANK_TILL_DROP					= 14;
+	protected static final int          REVIEW_FOR_MORE					= 15;
+	protected static final int 			TRIAL_OVER						= 16;
+	protected static final int 			SHOW_MAP_ACTIVITY				=17;
+	
+	Button								newOrder;
+	Button								summary;
+	
+	long								recordToDelete					= -1;
+
+	float[]								listOrderValues					= new float[100];
+	int[]								listOrderKeys					= new int[100];
+	ArrayList<Order> 					orders = new ArrayList<Order>();
+	int									count;
+	
+	public StreetList streetList						= null;
+	long t0;
+	public Thread startUpThread;
+	// public static View newOrderViewGroup;
+	Pattern	cityStateZipPattern	= Pattern.compile("([\\w\\s\\-\\.]+),\\s{0,1}(\\w{2})\\.{0,1}\\s([0-9]{5})");
+	ProgressDialog progressDialogForSetupDialog;
+	Thread threadForSetupDialogLookup;
+	protected Editor prefEditor;
+
+	//private TextView helpDrag;
+	
+
+    @Override
+	protected void onResume() {
+		super.onResume();
+		rebuildList();
+	}
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+		prefEditor = sharedPreferences.edit();
+    	
+    	if (sharedPreferences.getFloat("centrPoint_lat",0)==0){
+    		try {
+				prefEditor.putFloat("centrPoint_lat", (float) location.getLatitude());
+				prefEditor.putFloat("centrPoint_lng", (float) location.getLongitude());		
+    		} catch (Exception e){
+    			e.printStackTrace();
+    			//TODO: deal with no loaction
+			}
+    	}
+    	prefEditor.putFloat("dileveryRadius",0.1f);
+    	prefEditor.putBoolean("early_user", true);
+		prefEditor.commit();
+    	
+		streetList = StreetList.LoadState(getBaseContext());
+		if (StreetList.parentList.size()==0){
+			startUpThread = new Thread(new Runnable(){public void run(){
+				streetList = StreetList.LoadState(getBaseContext());
+				if (streetList.parentList.size()==0){
+					final GeoPoint g = streetList.getCurrentLocation();
+					if (g!=null){
+						// Spin endlessly until we can get the near by zip
+						// codes from the Internet
+						// presumably we don't have good Internet
+						// connectivity and there is no point
+						// in continuing
+						do {
+							streetList.findCloseByZipCodes();
+							try {
+								if (streetList.zipCodes.size() == 0) {
+									startUpThread.sleep(10000);
+								}
+							} catch (final Exception e) {
+							}
+						} while (streetList.zipCodes.size() == 0);
+						streetList.zipCodes.get(0).state = ZipCode.STATE_NEEDS_LOOKUP;
+						//Now we have zip codes and can start the download the street names
+						streetList.run();
+					}
+				}
+			}});
+			startUpThread.start();
+	        
+		} 	
+    }
+    
+    protected void init(){
+    	newOrder = (Button) findViewById(R.id.AddDelevery);
+    	
+    	newOrder.setOnClickListener(new View.OnClickListener() { public void onClick(final View v) {
+    		startActivityForResult(new Intent(getApplicationContext(), NewOrderActivity.class), 0);
+    	}});
+    	
+    	summary = (Button) findViewById(R.id.Checkout);
+    	summary.setOnClickListener(new View.OnClickListener() {
+    		public void onClick(final View v) {
+    			startActivity(new Intent(getApplicationContext(), ShiftHistoryActivity.class));
+    		}
+    	});
+    }
+    
+    private void startShift() {
+      	final String odometerPay = sharedPreferences.getString("odometer_per_mile", "");
+		Float odoPay = 0f;
+		
+		final int lastOrderDelta  = dataBase.getHoursSinceLastOrder();
+		final int openOrders      = dataBase.getUndeliveredOrderCount();
+		final int ordersThisShift = dataBase.getNumberOfOrdersThisShift();
+		
+		if (lastOrderDelta > 12 && ordersThisShift > 0 && ordersThisShift > openOrders) {
+			dataBase.setNextShift();
+			startActivity(new Intent(getApplicationContext(),ShiftStartEndActivity.class));
+		}
+		
+		final int extraTime = sharedPreferences.getInt("extraDays", 0);
+		
+		/*if ((dataBase.getCurShift() > 7) && zzz_version.isFree==true){
+			if (extraTime == 0) {
+				showDialog(REVIEW_FOR_MORE);
+			} else {
+				showDialog(TRIAL_OVER);
+			}
+		}*/
+	}
+    
+	@Override
+	protected Dialog onCreateDialog(final int id) {
+		switch (id) {
+		case REVIEW_FOR_MORE:{
+			return new AlertDialog.Builder(this).setIcon(R.drawable.icon).setTitle(
+			"Trial Expired").setMessage("Your trial period with this app has expired. If you dont want to purchase the app yet you can click the write review button below and get to keep using the app for 10 more shifts.").
+				setNeutralButton("Write Review", new DialogInterface.OnClickListener() {
+				public void onClick(final DialogInterface dialog, final int whichButton) {
+					final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pname:com.catglo.deliverydroidfree")); 
+					prefEditor.putInt("extraDays", 10);
+					prefEditor.commit();
+					startActivity(marketIntent);
+					finish();
+				}}).
+				setPositiveButton("Buy",
+			new DialogInterface.OnClickListener() {
+				public void onClick(final DialogInterface dialog, final int whichButton) {
+					final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pname:com.catglo.deliverydroid")); 
+					startActivity(marketIntent);
+					finish();	
+				}
+			}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(final DialogInterface dialog, final int whichButton) {
+					finish();	
+				}}).create();
+		}
+		case TRIAL_OVER:{
+			return new AlertDialog.Builder(this).setIcon(R.drawable.icon).setTitle(
+			"Trial Expired").setMessage("Your trial period with this app has expired.").
+				setPositiveButton("Buy",
+			new DialogInterface.OnClickListener() {
+				public void onClick(final DialogInterface dialog, final int whichButton) {
+					final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=com.catglo.deliverydroid")); 
+					startActivity(marketIntent);
+					finish();	
+				}
+			}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(final DialogInterface dialog, final int whichButton) {
+					finish();	
+				}}).create();
+		}
+		case DIALOG_CONFIRM_DELETE_RECORD: 
+			if (recordToDelete > -1) {
+				return new AlertDialog.Builder(this).setIcon(R.drawable.icon).setTitle(
+					"Delete this record?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(final DialogInterface dialog, final int whichButton) {
+						//Log.i("Delivery Driver", "User Y/N Delete Order");
+						dataBase.delete(recordToDelete);
+						rebuildList();
+					}
+				}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(final DialogInterface dialog, final int whichButton) {
+	
+						/* User clicked Cancel so do some stuff */
+					}
+				}).create(); 
+			} 
+		}
+		return null;
+	}
+
+	/******************************************************************
+	 * ACTIVITY UI DEFINITION
+	 * 
+	 * - onActivityResult - rebuildList - dropListener - onCreateContextMenu - onContextItemSelected -
+	 * commitChangeFromOrderEditScreen - onCreateOptionsMenu - onOptionsItemSelected
+	 ******************************************************************/
+
+	protected abstract void rebuildList();
+
+	/* Creates the menu items */
+	public boolean onCreateOptionsMenu(final Menu menu) {
+		menu.add(0, SETTINGS, 0, getString(R.string.settings)).setIcon(android.R.drawable.ic_menu_preferences);
+		menu.add(0, NEW_SHIFT, 0, getString(R.string.Start_End_Shift)).setIcon(R.drawable.ic_menu_guy_clock);
+		menu.add(0, TIP_STATS, 0, getString(R.string.tipHistory)).setIcon(R.drawable.happy);
+	//	menu.add(0, SMMARY, 0, getString(R.string.order_summary)).setIcon(android.R.drawable.ic_menu_info_details);
+		menu.add(0, BANK_TILL_DROP, 0, getString(R.string.expences)).setIcon(android.R.drawable.ic_menu_add);
+	
+	return true;
+	} 
+
+	/* Handles item selections */
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		switch (item.getItemId()) {
+			case SETTINGS: {
+				startActivityForResult(new Intent(getApplicationContext(), TaxiSettingsActivity.class), 0);
+				return true;
+			}
+			case SMMARY: {
+				startActivity(new Intent(getApplicationContext(), ShiftHistoryActivity.class));
+				return true;
+			}
+			case TIP_STATS: {
+				startActivityForResult(new Intent(getApplicationContext(), TipHistoryActivity.class), 0);
+				return true;
+			}
+			case NEW_SHIFT: {
+				startActivity(new Intent(getApplicationContext(),ShiftStartEndActivity.class));
+				return true;
+			}
+			case BANK_TILL_DROP:{
+				startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
+				return true;
+			}
+		}
+		return false;
+	}
+}

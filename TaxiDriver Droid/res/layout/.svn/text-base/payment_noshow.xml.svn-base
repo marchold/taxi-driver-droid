@@ -1,0 +1,19 @@
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent" android:gravity="center_horizontal" android:layout_width="290dip" android:id="@+id/LinearLayout1" android:orientation="vertical">
+        <TextView android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/chargeNoShowFee"></TextView>
+        <Spinner android:layout_width="fill_parent" android:id="@+id/spinner1" android:layout_height="wrap_content"></Spinner>
+        <RadioGroup android:id="@+id/radioGroup1" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_gravity="center" android:layout_marginTop="15dip">
+            <RadioButton android:layout_height="wrap_content" android:id="@+id/radio0" android:checked="true" android:text="@string/Cash" android:layout_marginLeft="2dip" android:layout_width="wrap_content" android:layout_weight="1"></RadioButton>
+            <RadioButton android:layout_height="wrap_content" android:id="@+id/radio1" android:text="@string/Credit" android:layout_width="wrap_content" android:layout_weight="1"></RadioButton>
+            <RadioButton android:layout_height="wrap_content" android:id="@+id/radio2" android:text="@string/account" android:layout_width="wrap_content" android:layout_weight="1"></RadioButton>
+        </RadioGroup>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/linearLayout3" android:layout_marginTop="15dip">
+            <TextView android:text="@string/Payment" android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_gravity="left" android:layout_height="wrap_content"></TextView>
+            <TextView android:text="TextView" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="105dip"></TextView>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/linearLayout2">
+            <EditText android:layout_width="wrap_content" android:id="@+id/editText2" android:layout_weight="1" android:layout_height="wrap_content" android:inputType="phone" android:numeric="decimal"></EditText>
+            <EditText android:layout_width="wrap_content" android:id="@+id/editText3" android:layout_weight="1" android:layout_height="wrap_content" android:inputType="phone"></EditText>
+        </LinearLayout>
+        <Button android:layout_width="wrap_content" android:id="@+id/button1" android:layout_height="wrap_content" android:layout_marginTop="20dip" android:text="@string/Save_Changes"></Button>
+    </LinearLayout>

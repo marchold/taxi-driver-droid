@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:id="@+id/widget38"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:background="@drawable/blue_gradent_background">
+ <Button android:layout_alignTop="@+id/Checkout" android:id="@+id/AddDelevery" android:text="@string/addPickup" android:textSize="22sp" android:layout_height="80dip" android:layout_width="160dip" android:layout_alignParentRight="true"></Button>
+ <Button android:id="@+id/Checkout" android:text="@string/summary" android:textSize="22sp" android:layout_height="80dip" android:layout_width="160dip" android:layout_alignParentBottom="true"></Button>
+ 
+ <com.google.android.maps.MapView 
+ android:clickable="true" 
+ android:id="@+id/mapview" 
+ android:layout_height="fill_parent" android:layout_width="fill_parent" 
+ android:layout_above="@+id/Checkout" android:layout_alignLeft="@+id/Checkout"
+ android:apiKey="@string/maps_API_KEY"
+ ></com.google.android.maps.MapView>
+    
+</RelativeLayout>

@@ -1,0 +1,10 @@
+
+    <LinearLayout 
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"  android:id="@+id/relativeLayout1" android:layout_height="wrap_content">
+        <EditText android:inputType="phone" android:id="@+id/editText3" android:layout_width="120dip" android:layout_height="wrap_content" android:width="150dip" android:layout_below="@+id/textView2" android:layout_alignLeft="@+id/textView2"
+        android:numeric="decimal|signed">  
+              </EditText>
+        <Spinner android:layout_width="120dip" android:layout_height="wrap_content" android:id="@+id/spinner1" android:layout_toRightOf="@+id/editText3" android:layout_alignTop="@+id/editText3" android:layout_alignBottom="@+id/editText3"></Spinner>
+        <ImageButton android:id="@+id/imageButton1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5dip" android:src="@drawable/icon_plus" android:layout_toRightOf="@+id/spinner1" android:layout_alignTop="@+id/spinner1" android:layout_alignBottom="@+id/spinner1"></ImageButton>
+    </LinearLayout>

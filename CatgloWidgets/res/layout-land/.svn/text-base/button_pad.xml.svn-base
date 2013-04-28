@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+
+<TextView android:id="@+id/buttonPadText" android:layout_width="170dip" android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"/>
+       
+<EditText android:id="@+id/buttonPadEdit" android:layout_width="170dip" android:layout_height="wrap_content"
+		  android:layout_below="@+id/buttonPadText" android:singleLine="true"/>
+<ProgressBar style="?android:attr/progressBarStyleSmall" android:id="@+id/progressBar1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_above="@+id/buttonPadEdit" android:layout_alignRight="@+id/buttonPadEdit" android:visibility="gone"></ProgressBar>
+  
+   
+<ImageButton android:id="@+id/Button07" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector7" android:background="#00000000"
+             android:layout_toRightOf="@+id/buttonPadEdit" android:layout_marginTop="15dip"/>
+<ImageButton android:id="@+id/Button08" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector8" android:background="#00000000"
+             android:layout_toRightOf="@+id/Button07"  android:layout_marginTop="15dip"/>
+<ImageButton android:id="@+id/Button09" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector9" android:background="#00000000"
+             android:layout_toRightOf="@+id/Button08"  android:layout_marginTop="15dip"/>
+
+
+             
+<ImageButton android:id="@+id/Button04" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector4" android:background="#00000000"
+             android:layout_below="@+id/Button07" android:layout_toRightOf="@+id/buttonPadEdit"/>
+<ImageButton android:id="@+id/Button05" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector5" android:background="#00000000"
+             android:layout_toRightOf="@+id/Button04"  android:layout_below="@+id/Button08"/>
+<ImageButton android:id="@+id/Button06" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector6" android:background="#00000000"
+             android:layout_toRightOf="@+id/Button05"  android:layout_below="@+id/Button09"/>
+             
+<ImageButton android:id="@+id/Button01" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector1" android:background="#00000000"
+             android:layout_below="@+id/Button04" android:layout_toRightOf="@+id/buttonPadEdit"/>
+<ImageButton android:id="@+id/Button02" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector2" android:background="#00000000"
+             android:layout_toRightOf="@+id/Button01"  android:layout_below="@+id/Button05"/>
+<ImageButton android:id="@+id/Button03" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector3" android:background="#00000000"
+             android:layout_toRightOf="@+id/Button02"  android:layout_below="@+id/Button06"/>
+
+<ImageButton android:id="@+id/ButtonDot" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector_dot" android:background="#00000000"
+             android:layout_below="@+id/Button01" android:layout_toRightOf="@+id/buttonPadEdit"/>
+<ImageButton android:id="@+id/ButtonZero" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector0" android:background="#00000000"
+             android:layout_toRightOf="@+id/ButtonDot"  android:layout_below="@+id/Button02"/>
+<ImageButton android:id="@+id/ButtonDel" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector_del" android:background="#00000000"
+             android:layout_toRightOf="@+id/ButtonZero"  android:layout_below="@+id/Button02"/>
+
+
+
+             
+<ImageButton android:id="@+id/ButtonNext" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/selector_next" android:background="#00000000"
+             android:layout_toLeftOf="@+id/ButtonDot" android:layout_below="@+id/Button07"/>
+<Button android:layout_height="wrap_content" android:text="Button" android:layout_width="wrap_content" android:id="@+id/button1" android:layout_below="@+id/ButtonNext" android:layout_toLeftOf="@+id/ButtonNext" android:visibility="gone"></Button>
+
+<ImageButton android:id="@+id/ButtonSpace" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/space" android:background="#00000000"
+             android:layout_below="@+id/ButtonNext" android:layout_toLeftOf="@+id/ButtonDot" 
+             android:visibility="gone"/>
+<ImageButton android:id="@+id/ButtonAbc" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@drawable/abc_selector" android:background="#00000000"
+             android:layout_below="@+id/ButtonSpace" android:layout_toLeftOf="@+id/ButtonDot" 
+             android:visibility="gone"/>
+             
+<ImageButton android:id="@+id/ButtonSpeech" android:layout_width="wrap_content" android:layout_height="wrap_content"
+             android:src="@android:drawable/ic_btn_speak_now" 
+             android:layout_below="@+id/buttonPadEdit" android:visibility="gone"/>
+               
+
+
+
+
+<ListView android:layout_width="fill_parent" android:layout_height="fill_parent"
+          android:id="@+id/buttonPadList" android:layout_toRightOf="@+id/Button09"/>
+              
+</RelativeLayout>

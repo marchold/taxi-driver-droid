@@ -1,0 +1,98 @@
+package com.catglo.deliveryDatabase;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.google.android.maps.GeoPoint;
+
+
+
+public class AddressSuggestior extends AddressSuggestiorGoogle {
+	private String bounds;
+	private Runnable commitLookup;
+	private DataBase dataBase;
+	float range;
+	private LocationManager locationManager;
+	private String bestProvider;
+	private Location location;
+	private double lat;
+	private double lng;
+	public ArrayList<GeoPoint> addressLocations;
+	public String[] addressList;
+	private StreetList streetList;
+		
+	public AddressSuggestior(Context context, final Runnable commit, DataBase dataBase){
+		super(context,null);
+		this.dataBase = dataBase;
+        streetList = StreetList.LoadState(context);		
+        this.commitLookup = commit;
+		
+	}
+
+	void init(){
+		commitor = new AddressSuggestionCommitor(){public void commit(String[] _addressList, GeoPoint[] addressLocations) {
+			addressList = _addressList;
+			if (commitLookup != null) {
+				commitLookup.run();
+			}
+		}};
+	}
+	
+	@Override
+	public void lookup(final String addressSoFar) {
+		if (commitor == null){
+			init();
+		}
+		super.lookup(addressSoFar);
+	}
+	
+
+	protected boolean useAlternateLocalLookup(String addressSoFar) {
+		Pattern streetNumberOnly = Pattern.compile("^[0-9]+\\s{0,2}$");
+		if (streetNumberOnly.matcher(addressSoFar).find()){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	protected void alternateLocalLookup(String addressSoFar)    {
+		ArrayList<String> resultsFromDB = new ArrayList<String>();
+		Pattern streetNumberOnly = Pattern.compile("^[0-9]+$");
+		if (streetNumberOnly.matcher(addressSoFar).find()){
+			dataBase.getAddressSuggestionsFor(addressSoFar,resultsFromDB);
+			addressList = resultsFromDB.toArray(new String[0]);
+			if (commitLookup != null) {
+				commitLookup.run();
+			}
+		} else 
+		{
+			int size = StreetList.parentList.size();
+			if (size > 0) {
+				for (int i = 0; i < size; i++) {
+					String s = new String(StreetList.parentList.get(i).name);
+					resultsFromDB.add(addressSoFar+s.replace('+', ' '));
+				}				
+			}
+			addressList = resultsFromDB.toArray(new String[0]);
+			if (commitLookup != null) {
+				commitLookup.run();
+			}
+		}
+	}
+}

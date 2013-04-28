@@ -1,0 +1,13 @@
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent" android:id="@+id/linearLayout1" android:orientation="vertical" android:layout_width="fill_parent">
+        <TextView android:id="@+id/textView1" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ExportTo"></TextView>
+        <Spinner android:layout_height="wrap_content" android:id="@+id/spinner1" android:layout_width="fill_parent"></Spinner>
+        <TextView android:id="@+id/textView2" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/enterFileName"></TextView>
+        <EditText android:id="@+id/editText1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <requestFocus></requestFocus>
+        </EditText>
+        <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_gravity="center" android:gravity="center">
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/button1" android:layout_gravity="center" android:text="@string/export" android:width="100dip" android:layout_margin="20dip"></Button>
+            <Button android:layout_height="wrap_content" android:id="@+id/button2" android:layout_gravity="center" android:text="@string/Cancel" android:layout_width="100dip" android:layout_margin="20dip"></Button>
+        </LinearLayout>
+    </LinearLayout>

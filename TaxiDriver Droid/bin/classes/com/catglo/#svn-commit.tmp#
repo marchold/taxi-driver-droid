@@ -1,0 +1,15 @@
+
+
+--This line, and those below, will be ignored--
+
+M    taxidroid/TaxiDroidBaseActivity.java
+M    taxidroid/AddEditOrderBaseActivity.java
+M    taxidroid/TaxiDriverMainActivity.java
+M    taxidroid/ShiftHistoryActivity.java
+M    taxidroid/ImmediatePickupAcitivty.java
+M    taxidroid/PaymentDialogBase.java
+M    taxidroid/DroppingOffActivity.java
+M    taxidroid/PaymentDialogNoShow.java
+M    taxidroid/PaymentDialog.java
+M    taxidroid/EditOrderActivity.java
+M    taxidroid/TaxiDriverMainBaseActivity.java

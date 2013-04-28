@@ -1,0 +1,7 @@
+package com.catglo.deliveryDatabase;
+
+import com.google.android.maps.GeoPoint;
+
+public interface AddressSuggestionCommitor {
+	void commit(String[] addressList, GeoPoint[] addressLocations);
+}

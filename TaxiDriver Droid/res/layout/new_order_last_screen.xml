@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/NewOrderLastScreen" android:layout_height="fill_parent">
+
+<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+<RelativeLayout android:layout_width="fill_parent"
+                android:gravity="center" android:layout_height="fill_parent">
+
+
+<TextView
+android:id="@+id/OrderNumberText"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content" android:text="@string/OrderNumber">
+</TextView>
+
+
+<EditText
+android:id="@+id/OrderNumber"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text=""
+android:textSize="18sp"
+android:singleLine="true"
+android:layout_toRightOf="@+id/OrderNumberText"
+android:inputType="phone"
+/>
+<EditText android:id="@+id/OrderTime" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="time" android:layout_below="@+id/OrderNumber" android:layout_alignLeft="@+id/OrderNumber">
+</EditText>
+
+<TextView
+android:id="@+id/textOrder"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_below="@+id/OrderNumber"
+android:text="@string/pickupTime">
+</TextView>
+<TextView android:text="@string/pickupAddress" android:layout_width="wrap_content" android:id="@+id/widget169" android:layout_height="wrap_content" android:layout_below="@+id/textOrder" android:layout_alignLeft="@+id/textOrder" android:layout_marginTop="30dip"></TextView>
+
+<!--AutoCompleteTextView   -->
+<com.catglo.widgets.AddressAutocomplete android:textSize="18sp" android:singleLine="true" android:layout_width="fill_parent" android:id="@+id/OrderAddress" android:inputType="textPostalAddress" android:layout_height="wrap_content" android:layout_below="@+id/widget169" android:layout_alignLeft="@+id/widget169"></com.catglo.widgets.AddressAutocomplete>
+<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_below="@+id/OrderAddress" android:layout_alignLeft="@+id/OrderAddress" android:layout_width="fill_parent" android:id="@+id/dropOffContainer" android:minHeight="20dip">
+ 
+</LinearLayout>
+   <TextView android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content"
+   android:layout_below="@+id/dropOffContainer"
+   android:text="@string/notes"></TextView>
+   <EditText  android:hint="@string/notes" android:id="@+id/editText1" android:layout_below="@+id/textView1" android:layout_height="wrap_content" android:layout_alignLeft="@+id/textView1" android:layout_width="fill_parent">
+   </EditText>
+   <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView2" android:layout_below="@+id/editText1" android:layout_alignParentLeft="true" android:text="@string/tripType"></TextView>
+   <Button android:layout_height="70dip" android:text="@string/addPickup" android:id="@+id/AddOrder" android:layout_below="@+id/autoCompleteTextView1" android:layout_width="fill_parent" android:layout_alignParentBottom="true"></Button>
+   <AutoCompleteTextView android:hint="@string/tripType" android:id="@+id/autoCompleteTextView1" android:layout_below="@+id/textView2" android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:singleLine="true"></AutoCompleteTextView>
+
+
+</RelativeLayout>
+
+</ScrollView>
+<TextView android:text="@string/notes" android:layout_width="wrap_content" android:id="@+id/widget170" android:layout_height="wrap_content"></TextView>
+<EditText android:layout_weight="1" android:textSize="18sp" android:id="@+id/OrderNotes" android:layout_width="fill_parent" android:singleLine="true" android:layout_height="wrap_content"></EditText>
+
+</LinearLayout>
+

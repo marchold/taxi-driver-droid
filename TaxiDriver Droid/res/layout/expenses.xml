@@ -1,0 +1,12 @@
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/relativeLayout" android:layout_width="fill_parent" android:gravity="top" android:layout_marginTop="20dip"
+  android:background="@drawable/blue_gradent_background" android:layout_height="fill_parent">
+     <ListView android:layout_width="fill_parent" android:id="@+id/listView1" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_height="wrap_content" android:layout_above="@+id/textView2"></ListView>
+     <Button android:layout_width="wrap_content" android:id="@+id/button1" android:layout_alignParentBottom="true" android:layout_alignParentRight="true" android:text="@string/addExpense" android:layout_height="wrap_content"></Button>
+     <AutoCompleteTextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:hint="Category" android:id="@+id/autoCompleteTextView1" android:layout_alignParentBottom="true" android:layout_toLeftOf="@+id/editText1" android:layout_alignParentLeft="true">
+         <requestFocus></requestFocus>
+     </AutoCompleteTextView>
+     <EditText android:layout_width="wrap_content" android:hint="Amount" android:layout_height="wrap_content" android:id="@+id/editText1" android:layout_alignParentBottom="true" android:layout_toLeftOf="@+id/button1" android:inputType="phone"></EditText>
+     <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/editText2" android:layout_above="@+id/autoCompleteTextView1" android:layout_alignParentRight="true" android:hint="Expense Description" android:layout_alignParentLeft="true"></EditText>
+     <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_above="@+id/editText2" android:layout_alignRight="@+id/autoCompleteTextView1" android:text="@string/total" android:layout_marginBottom="15dip"></TextView>
+     <TextView android:text="TextView" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_alignBottom="@+id/textView1" android:layout_alignLeft="@+id/editText1" android:layout_marginLeft="15dp"></TextView>
+</RelativeLayout>

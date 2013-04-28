@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="AddOrder">Add Order</string>
+    <string name="OrderNotes">Order Notes</string>
+    <string name="OrderAddress">Order Address</string>
+    <string name="OrderTotal">Order Total</string>
+    <string name="OrderTime">Order Time</string>
+    <string name="OrderNumber">Order Number</string>
+    <string name="SplitOrder">Split</string>
+    <string name="foodStamps">EBT</string>
+    <string name="Credit">Credit</string>
+    <string name="Check">Check</string>
+    <string name="Cash">Cash</string>
+    <string name="minutes">minutes</string>
+    <string name="wait">Wait:</string>
+    <string name="Next">Next</string>
+    <string name="Payment">Payment</string>
+    <string name="PendingDeliveries">Pending Deliveries</string>
+    <string name="DriverEarnings">Driver Earnings:</string>
+    <string name="Mileage">Mileage:</string>
+    <string name="tips">Tips:</string>
+    <string name="currentEarnings">Current Earnings</string>
+    <string name="creditTips">Other Tips</string>
+    <string name="cashTips">Cash Tips</string>
+    <string name="app_name">Taxi Driver Droid</string>
+	<string-array name="DaysOfTheWeek">
+		<item>Monday</item>
+		<item>Tuesday</item>
+		<item>Wednesday</item>
+		<item>Thursday</item>
+		<item>Friday</item>
+		<item>Saturday</item>
+		<item>Sunday</item>
+	</string-array>
+	<string-array name="DaysOfWeekValues">
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>1</item>
+	</string-array>
+<string name="StartRunDialogTitle">Start New Run?</string>
+<string name="Yes">Yes</string>
+<string name="No">No</string>
+<string name="PreviousDelivery">Previous Delivery</string>
+<string name="EDITORDER">EDIT ORDER</string>
+<string name="MinutesAddress">Minutes since order/Address\n</string>
+<string name="StartRunDialogMessage">Choose Yes to if you are returning to the store and the undelivered orders are part of the next run. Choose no if you are just organizing the deliveries.</string>
+<string name="OutOfTown">Out of town</string>
+<string name="edit_street_names">Edit this street name</string>
+<string name="delete_street_name">Delete this street name</string>
+<string name="add_new_street">Add a street name to this list</string>
+<string name="edit_street_name">Edit this street name</string>
+<string name="oder_number">Order Number</string>
+<string name="order_price">Order Price</string>
+<string name="Speak_address">Speak address</string>
+<string name="Save_Changes">Save Changes</string>
+<string name="order_number">Order Number</string>
+<string name="EditStreetDialogTitle">Edit Street Name</string>
+<string name="Ok">Ok</string>
+<string name="Cancel">Cancel</string>
+<string name="EditStreetDialogMessage">Type the correct spelling for this street name, or click delete to remove it from the list.</string>
+<string name="DeletetreetDialogTitle">Are you sure?</string>
+<string name="delete_street_message">Are you sure you want to delete %s from the list</string>
+<string name="NewStreetDialogTitle">Add Street Name</string>
+<string name="AddStreetDialogMessage">Enter the street name that you would like to add to the street list</string>
+<string name="drag_deliveries">Use the icon to drag deliveries in the desired order</string>
+<string name="deleteStreetButton">Delete Street</string>
+<string name="editThisStreet">Edit Street</string>
+<string name="apartmentNumber">Apt.</string>
+<string name="SendFeedback">Send Feedback</string>
+<string name="contactdev">Contact developer to report a problem, or suggest an improvement.</string>
+<string name="Feedback">Feedback</string>
+<string name="reviewapp">Review This App</string>
+<string name="youlike">If you like this app, let people know.</string>
+<string name="Review">Review</string>
+<string name="mileageand">Mileage and Hourly pay</string>
+<string name="MileagePay">Mileage Pay</string>
+<string name="MileagePaySum">Set the amount you earn by delivery, by odometer, or as a % of total.</string>
+<string name="Mileagepayperdelivery">Mileage pay per delivery</string>
+<string name="theamount">The amount of money you get paid for each delivery by the store</string>
+<string name="theamounttitle">Dollar amount you get paid for each delivery</string>
+<string name="PayPercentageTotalTitle">Pay as percentage of total</string>
+<string name="PayPercentageSum">The percent of the order total you get paid by the store</string>
+<string name="PayPercentageTitle">Percent of order total you get paid</string>
+<string name="odometerTitle">Pay per mile on odometer</string>
+<string name="odoSum">The dollars per mile that you earn. This will trigger the odometer reading pop up</string>
+<string name="odoDiagTitle">Amount of money you get paid per mile</string>
+<string name="mileageRunTitle">Mileage pay for each run</string>
+<string name="mileageRunSum">The amount of money you get paid for each time you leave the store.</string>
+<string name="mileageRunDiagTitle">Dollar amount you get paid for each run</string>
+<string name="altMilTitle">Alt. Mileage pay (out of town)</string>
+<string name="altMilSum">The amount of money you get paid for out of town delivery by the store</string>
+<string name="altMilDiagTitle">Dollar amount you get paid for out of town deliveries</string>
+<string name="altPay2">Alt. Mileage pay 2</string>
+<string name="altPay3">Alt. Mileage pay 3</string>
+<string name="altPay4">Alt. Mileage pay 4</string>
+<string name="altPay2Sum">An alternate amount you get paid for each delivery in the Alt2 category</string>
+<string name="altPayDT">Dollar amount you get paid for the alt 2 categories of deliveries</string>
+<string name="altPayL">Alt. Mileage pay label</string>
+<string name="altPayLSum">The label used for Alternate Mileage pay</string>
+<string name="altPayLSum1">The label used for Alternate Mileage pay, such as Out Of Town.</string>
+<string name="altPayLDT">The label used for Alternate Mileage pay</string>
+<string name="time">time</string>
+<string name="date">date</string>
+<string name="Delivery_time">Delivery time </string>
+<string name="Order_placed">Order placed</string>
+<string name="black_color_value">#00000000</string>
+<string name="navy_color_code">#000080</string>
+<string name="quit">Quit</string>
+<string name="goBack">Go Back</string>
+<string name="undelivered">Undelivered</string>
+<string name="ebt">EBT</string>
+<string name="help">Help</string>
+<string name="altPaySettingsInstructions">The alternate mileage pay is for situations where the store pays you a different amount for the delivery than it normally would. The value of the alternate mileage pay is added to your normal mileage pay.\nFor example if you get payed $0.10 per delivery, but you get paid $0.15 per delivery to the local Army Base. You would set one <i>Alt. Mileage Pay</i> to <b>$0.05</b> and the <i>Alt. Mileage pay label</i> to <b>Army Base</b>.\nIf there are some deliveries which you do not get paid mileage for you can enter a negative number, so if you get $0.10 a delivery enter an alternate amount of -0.10, then select that one when you don\'t get mileage pay.  There are 4 alternate amounts in case you have different pay for Out Of Town, College Dorm, Army Base, Before 4pm, or whatever.</string>
+<string name="no_order_numbers">No Order Number</string>
+<string name="no_order_numbers_desc">Check to bypass the order number screen in the order entry process.</string>
+<string name="Initial_Order_Number">Initial Order Number</string>
+<string name="Initial_Order_Number_desc">Set automatically when entering order numbers. Serves as the first number in the list of order numbers</string>
+<string name="Initial_Order_Number_daigTitle">The order number to start counting from</string>
+<string name="No_addresses">No Addresses</string>
+<string name="No_addresses_desc">Check to bypass the address entry screen in the order entry process.</string>
+<string name="Store_Address">Store Address</string>
+<string name="Store_Address_desc">The street address of the store where the deliveries originate</string>
+<string name="not_split">Not Split</string>
+<string name="hour">hour</string>
+<string name="minute">minute</string>
+<string name="thisShift">This Shift</string>
+<string name="thisWeek">This Week</string>
+<string name="ThisMonth">This Month</string>
+<string name="ThisYear">This Year</string>
+<string name="CustomDateRange">Custom Date Range</string>
+<string name="today">today</string>
+<string name="startDate">Start Date</string>
+<string name="endDate">End Date</string>
+<string name="selectDateRange">Select Date Range</string>
+<string name="ExportTo">Export To</string>
+<string name="enterFileName">Enter File Name</string>
+<string name="email">e-mail</string>
+<string name="export">Export</string>
+<string name="export_dialog_title">Select Export Destination</string>
+<string name="sdcard">SD Card</string>
+<string name="cvs_email_subject">Taxi Driver Droid Export</string>
+<string name="wrote">wrote</string>
+<string name="StartOfWorkWeek">Start Of Work Week</string>
+<string name="StartOfWorkWeek_diagSum">For calculating weekly totals, the day your work week starts.</string>
+<string name="StartOfWorkWeek_diagTitle">Work week starts on</string>
+
+<string name="OrderEntrySettings">Order Entry Settings</string>
+<string name="orderEntrySettingsHelp">Taxi Droid tries to make entering orders as quick as possible. To do this there are several screens dedicated to entering order numbers, order prices, and order addresses. Here you can configure the order entry process to skip some of those screens or configure how they work.</string>
+
+<string name="commissionChargeSettings">Commission Charge Settings</string>
+<string name="commissionChargeSettings_sum">Set the persentage amount you pay to the car owner or taxi company.</string>
+
+<string name="Commission_for_scheduled_jobs">Scheduled jobs - Cash</string>
+<string name="Commission_for_scheduled_jobs_sum">The persentage amount of your takings you pay for scheduled jobs when the customer pays cash.</string>
+
+<string name="Commission_for_scheduled_jobs_credit">Scheduled jobs - Credit</string>
+<string name="Commission_for_scheduled_jobs_sum_credit">The persentage amount of your takings you pay for scheduled jobs when the customer pays with a credit card.</string>
+
+<string name="Commission_for_scheduled_jobs_account">Scheduled jobs - Account</string>
+<string name="Commission_for_scheduled_jobs_sum_account">The persentage amount of your takings you pay for scheduled jobs when the customer pays using an account.</string>
+
+<string name="Commission_for_street_hire">Street Hire - Cash</string>
+<string name="Commission_for_street_hire_sum">The persentage amount of your takings you pay for street hires when the customer pays cash.</string>
+
+<string name="Commission_for_street_hire_credit">Street Hire - Credit</string>
+<string name="Commission_for_street_hire_sum_credit">The persentage amount of your takings you pay for street hires when the customer pays with a credit card.</string>
+
+<string name="Commission_for_street_hire_account">Street Hire - Account</string>
+<string name="Commission_for_street_hire_sum_account">The persentage amount of your takings you pay for street hires when the customer pays using an account.</string>
+
+<string name="please_enter_persentage">Please enter the persentage. For example enter .10 for 10 percent</string>
+
+<string name="settings">Settings</string>
+<string name="Start_End_Shift">Start/End Shift</string>
+<string name="tipHistory">Tip History</string>
+<string name="order_summary">Order Summary</string>
+<string name="bany_till_drop">Banks Tills &amp; Drops</string>
+<string name="hourly_pay_rate">Hourly pay rate</string>
+<string name="tha_amount_pait_by_store">The amount of money you get paid per hour by the store"</string>
+<string name="hourly_pay_at_work">Hourly pay rate you get paid while at work</string>
+<string name="set_amount_per_hour">Set the amount you earn per hour.</string>
+<string name="pay_rate_on_run">Pay rate while on a run</string>
+<string name="pay_rate_on_run_sum">The hourly rate (if different) you get paid while on a run</string>
+<string name="average">average\ntip this\naddress</string>
+<string name="tipsMade">Tips Made</string>
+<string name="bestTip">Best Tip</string>
+<string name="averageTip">Average Tip</string>
+<string name="worstTip">Worst Tip</string>
+<string name="textMessage">text message</string>
+<string name="blank"> </string>
+<string name="tipsHistoryExportEmailTop">Delivery Droid Tip Information Email: </string>
+<string name="bankHeading">Bank/Till Amount</string>
+<string name="totalYouOwe">Total You Owe</string>
+<string name="totalYourOwed">Total Your Owed</string>
+<string name="drops">Drops</string>
+<string name="ClearValues">Clear Values</string>
+<string name="total">Total</string>
+<string name="addPickup">Schedule Pickup</string>
+<string name="addDropoff">Add Drop Off</string>
+<string name="pickupTime">Pickup Time</string>
+<string name="pickupAddress">Pickup Address</string>
+<string name="notes">Notes</string>
+<string name="dropOffAddress">Drop Off Address</string>
+<string name="onScene">On Scene</string>
+<string name="noShow">No Show</string>
+<string name="cancelOrder">cancelOrder</string>
+<string name="pickup">Pickup</string>
+<string name="actualPickupTime">Actual Pickup Time</string>
+<string name="scheduledPickupTime">Scheduled Pickup Time</string>
+<string name="arrivalTime">Arrival Time</string>
+<string name="coustomerGotInCab">Customer got in cab</string>
+<string name="drivingToPickup">Driving To Pickup Address</string>
+<string name="waitingForCoustomer">Waiting For Customer</string>
+<string name="customerInCabButton">Customer In Cab</string>
+<string name="dropOffHeading">Driving Customer To</string>
+<string name="dropOff">Drop Off</string>
+<string name="account">Account</string>
+<string name="meterAmount">Meter Amount</string>
+<string name="AuthorizationNumber">Authorization Number</string>
+<string name="paymentType">Payment Type</string>
+<string name="workOwsYou">Work Owes You</string>
+<string name="youOweWork">You Owe Work</string>
+<string name="pickups">pickups</string>
+<string name="summary">Log Sheet</string>
+<string name="immediatePickup">Immediate Pickup</string>
+<string name="odometerTotal">Odometer total</string>
+<string name="deliveries">Deliveries</string>
+<string name="shiftStartTime">Shift start time</string>
+<string name="shiftEndTime">Shift end time</string>
+<string name="shiftStartOdometer">Odometer value at start of shift</string>
+<string name="odometerAtEnd">Odometer value at end of shift</string>
+<string name="endThisShift">End this shift</string>
+<string name="goBacAShift">Remove this shift</string>
+<string name="odo_and_hr">Odometer and Hours</string>
+<string name="deleteThisShift">Delete this shift</string>
+<string name="goToDay">Go to day</string>
+<string name="showNotes">Show Notes</string>
+<string name="milesDriven">Miles Driven</string>
+<string name="hoursWorked">Hours worked</string>
+<string name="deleteThisRecord">Delete this record?</string>
+<string name="MoneyCollected">Money Collected</string>
+<string name="orders">Orders</string>
+<string name="chargeNoShowFee">Charge No Show Fee?</string>
+<string name="cancled">Canceled</string>
+<string name="status">Status</string>
+<string name="complete">Complete</string>
+<string name="lookingUpCurrentAddress">Looking up current address</string>
+<string name="currentAddress">Address from current GPS location</string>
+<string name="leaveBlankForGPSAddress">Leave blank to use GPS for address</string>
+<string name="maps_API_KEY">061vUOvKcZ-d5Ffc1iTIga-k-xXljT-CP2d1AYA</string>
+<string name="maps_API_KEY_RELASE">061vUOvKcZ-dcpNhvCHxZUmnmyoER75aCRCTX-Q</string>
+<string name="maps_AIP_KEY_debug">061vUOvKcZ-d5Ffc1iTIga-k-xXljT-CP2d1AYA</string>
+<string name="done">Done</string>
+<string name="tripType">Trip Type</string>
+<string name="logSheet">Log Sheet</string>
+<string name="streetHire">Street Hire</string>
+<string name="commision">Commision</string>
+<string name="expences">Expences</string>
+<string name="reimburse">reimburse</string>
+<string name="addExpense">Add Expense</string>
+<string name="rawCSVData">Raw CSV Data</string>
+<string name="printableHTML">Printable HTML</string>
+<string name="exportWhereDialogTitle">Select Export Format</string>
+<string name="email_save_html_warning">In gmail\'s preview mode this file will not be properly formated. Please save the file and then open it again.</string>
+<string name="commision_help">The commision is calculated as a percentage of the meter amount.\nYou must enter values indicating the percentage of your meter that you must pay to the taxi company.\n\n**The commisions for Street Hire are charged instead of the scheduled job commision when you press the Street Hire button on the main screen.</string>
+
+</resources>

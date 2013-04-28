@@ -1,0 +1,206 @@
+package com.catglo.taxidroid;
+
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.Locale;
+
+import com.catglo.deliveryDatabase.*;
+import com.catglo.widgets.DateRangeSlider;
+import com.catglo.widgets.DateSlider;
+import com.catglo.widgets.TimeSlider;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
+import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class TaxiDroidBaseActivity extends MapActivity implements LocationListener {
+	protected DataBase dataBase = null;
+	SharedPreferences sharedPreferences;
+	
+	EditText currentTimeDateField = null;
+    Timestamp currentEditTimestamp = null;
+    Calendar currentEditCalendar = null;
+    TimeSlider timeSlider=null;
+    private DateRangeSlider dateRangeSlider;   
+
+	public DecimalFormat currency;
+	protected LocationManager locationManager;
+	protected String bestProvider;
+	protected Location location;
+	public static GeoPoint geoPoint;
+	  	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+         if (dataBase == null) {
+        	dataBase = new DataBase(getApplicationContext());
+        	dataBase.open();
+        }
+    	sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    	currency = new DecimalFormat("#0.00");
+    	
+    	locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    	Criteria criteria = new Criteria();
+    	criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setPowerRequirement(Criteria.POWER_HIGH);
+            
+            
+		bestProvider = locationManager.getBestProvider(criteria, false);
+		location = locationManager.getLastKnownLocation(bestProvider);
+		onLocationChanged(location);
+		
+    }
+	
+    @Override
+	protected void onResume() {
+		super.onResume();
+		dataBase.open();
+    	locationManager.requestLocationUpdates(bestProvider, 0, 0, this);
+	}
+
+	@Override
+	protected void onPause() {
+		dataBase.close();
+    	locationManager.removeUpdates(this);
+		super.onPause();
+	}
+	
+	 
+	 void showTimeSliderDialog(EditText field, Timestamp time){
+    	currentTimeDateField=field;
+		currentEditTimestamp=time;
+		currentEditCalendar = Calendar.getInstance();
+		currentEditCalendar.setTimeInMillis(time.getTime());
+    	if (timeSlider==null || timeSlider.isShowing()==false) {
+    		timeSlider = new TimeSlider(this,mDateSetListener,currentEditCalendar,"");
+    		timeSlider.show();
+    	}
+	 }
+	 
+	 // define the listener which is called once a user selected the date.
+	 private DateSlider.OnDateSetListener mDateSetListener = new DateSlider.OnDateSetListener() {
+        public void onDateSet(DateSlider view, Calendar selectedDate) {	
+        	currentTimeDateField.setText(String.format("%tl:%tM %tp", selectedDate, selectedDate, selectedDate));
+          	currentEditTimestamp.setTime(selectedDate.getTimeInMillis());
+        }
+    };
+	 
+    void getDateRangeDialog(Calendar start, Calendar stop,OnDismissListener dismissListener) {
+    	if (dateRangeSlider==null || dateRangeSlider.isShowing()==false){
+    		dateRangeSlider = new DateRangeSlider(this,start,stop);
+    		dateRangeSlider.setOnDismissListener(dismissListener);
+    		dateRangeSlider.show();
+    	}
+    }
+    
+    void getWorkWeekDates(Calendar date,Calendar start, Calendar stop) {
+    	final int weekStartDay = new Integer(this.sharedPreferences.getString("StartOfWorkWeek", "0"));
+    
+    	start.setTimeInMillis(date.getTimeInMillis());
+    	start.set(Calendar.DAY_OF_WEEK, weekStartDay);
+		
+		//if the start is in the future roll back 1 week
+		if (start.getTimeInMillis() > date.getTimeInMillis()) {
+			start.add(Calendar.DAY_OF_WEEK, -7);
+		}
+		stop.setTimeInMillis(start.getTimeInMillis());
+		stop.add(Calendar.DATE, 7);
+    }
+    
+    static String getFormattedTimeDay(Calendar c){
+		return String.format("%tl:%tM %tp %ta", c,c,c,c);
+	}
+	
+	static String getFormattedTimeDay(Timestamp t){
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(t.getTime());
+		return getFormattedTimeDay(c);
+	}
+	
+	
+	static String getFormattedCurrency(Float f){
+		String currencySymbol = Currency.getInstance(Locale.getDefault()).getSymbol();
+		DecimalFormat currency = new DecimalFormat("#0.00");
+		currency.setMaximumFractionDigits(Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits());
+		currency.setMinimumFractionDigits(Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits());
+		return currencySymbol+currency.format(f);	
+	}
+	
+	static String getFormattedTime(Calendar c){
+		return String.format("%tl:%tM %tp", c,c,c);
+	}
+	
+	static String getFormattedTime(Timestamp t){
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(t.getTime());
+		return getFormattedTime(c);
+	}
+	
+	
+	void showTimeSliderDialog(EditText field, Timestamp time, Dialog.OnDismissListener listener){
+    	currentTimeDateField=field;
+		currentEditTimestamp=time;
+		currentEditCalendar = Calendar.getInstance();
+		currentEditCalendar.setTimeInMillis(time.getTime());
+    	if (timeSlider==null || timeSlider.isShowing()==false) {
+    		timeSlider = new TimeSlider(this,mDateSetListener,currentEditCalendar,"");
+    		if (listener!=null)
+    			timeSlider.setOnDismissListener(listener);
+    		timeSlider.show();
+    	}
+	 }
+	
+	void showTimeSliderDialog(EditText field, Calendar cal, Dialog.OnDismissListener listener){
+		currentTimeDateField=field;
+		currentEditTimestamp=new Timestamp(cal.getTimeInMillis());
+		currentEditCalendar = cal;
+		if (timeSlider==null || timeSlider.isShowing()==false) {
+    		timeSlider = new TimeSlider(this,mDateSetListener,currentEditCalendar,"");
+    		if (listener!=null)
+    			timeSlider.setOnDismissListener(listener);
+    		timeSlider.show();
+    	}
+	 }
+
+	//GPS Listeners
+	public void onLocationChanged(Location location) {
+		this.location = location;
+		try {
+			geoPoint = new GeoPoint(
+				    (int)(location.getLatitude()*1000000),
+				    (int)(location.getLongitude()*1000000));
+		} catch (NullPointerException e){
+			Log.d("Taxi","Location was null");
+			e.printStackTrace();
+			geoPoint=null;
+		}
+				   
+	}
+	public void onProviderDisabled(String provider) {}
+	public void onProviderEnabled(String provider) {}
+	public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		return false;
+	}	
+}

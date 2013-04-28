@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent" 
+
+    android:orientation="horizontal" 
+    android:id="@+id/table_row"
+    android:layout_height="64dip" 
+    android:layout_gravity="bottom"
+> 
+<ImageView 
+        android:id="@+id/icon" 
+        android:layout_width="64dip" 
+        android:paddingLeft="0px" 
+        android:paddingRight="0px" 
+        android:paddingTop="4px" 
+        android:layout_height="wrap_content" 
+        android:src="@drawable/ic_mp_move" 
+        android:layout_gravity="center"
+    /> 
+
+<RelativeLayout android:layout_height="64dip" android:id="@+id/complex" android:layout_width="wrap_content" >
+
+<TextView 
+ android:id="@+id/addressSmall"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text="13032 178th DR SE. Snohomish, WA. 98290 USA" android:singleLine="true" android:textSize="24sp"/>
+<TextView android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12:39pm" android:layout_below="@+id/addressSmall" android:layout_alignLeft="@+id/addressSmall" android:textSize="24sp"></TextView>
+
+</RelativeLayout>
+
+
+
+
+
+</LinearLayout>

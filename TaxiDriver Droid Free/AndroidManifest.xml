@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.catglo.taxidroidtrial"
+      android:versionCode="24"
+      android:versionName="1.14">
+    <uses-sdk android:minSdkVersion="7" />
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".TaxiLiteActivity"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="com.catglo.taxidroid.TaxiDriverMainActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.EditOrderActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.ShiftHistoryActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.TipHistoryActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.NewOrderActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.TaxiSettingsActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.DroppingOffActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.AddExpenseActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.ImmediatePickupAcitivty"></activity>
+        <activity android:name="com.catglo.taxidroid.ShiftStartEndActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.TaxiDriverMapActivity"></activity>
+        <activity android:name="com.catglo.taxidroid.OdometerEntryActivity"></activity>
+        
+        <uses-library android:name="com.google.android.maps" android:required="true"></uses-library>
+
+    </application>
+    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	
+</manifest>

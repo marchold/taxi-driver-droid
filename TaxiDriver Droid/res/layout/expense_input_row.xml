@@ -1,0 +1,18 @@
+ <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:orientation="vertical"
+    android:layout_height="fill_parent" android:id="@+id/relativeLayout1" android:layout_width="fill_parent">
+     <TextView android:layout_height="wrap_content" android:text="@string/blank" android:layout_width="wrap_content" android:visibility="gone" android:id="@+id/idField"></TextView>
+     <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout1" android:layout_width="fill_parent">
+         <EditText android:layout_height="wrap_content" android:layout_width="96dp" android:inputType="numberDecimal" android:id="@+id/editText1" android:hint="Date" android:layout_weight="16.67">
+             <requestFocus></requestFocus>
+         </EditText>
+         <EditText android:layout_height="wrap_content" android:inputType="date" android:id="@+id/editText2" android:hint="Amount" android:layout_width="wrap_content" android:layout_weight="11.11"></EditText>
+         <CheckBox android:layout_height="wrap_content" android:text="@string/reimburse" android:layout_width="wrap_content" android:id="@+id/checkBox1" android:textSize="10sp"></CheckBox>
+     </LinearLayout>
+     <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout2" android:layout_width="fill_parent">
+         <EditText android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="wrap_content" android:id="@+id/editText3" android:hint="Description"></EditText>
+         <EditText android:layout_height="wrap_content" android:id="@+id/editText4" android:hint="Category" android:layout_width="wrap_content"></EditText>
+         <ImageButton android:layout_height="wrap_content" android:id="@+id/imageButton1" android:src="@drawable/icon_plus" android:layout_width="wrap_content"></ImageButton>
+     </LinearLayout>
+    </LinearLayout>

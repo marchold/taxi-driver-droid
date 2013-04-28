@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:key="Settings">
+
+	<PreferenceCategory android:title="@string/Feedback">
+
+	  	<com.catglo.taxidroid.EmailMePreference
+			android:key="SendFeedback" android:title="@string/SendFeedback"
+			android:summary="@string/contactdev"
+			android:dialogTitle="@string/Feedback" />
+	
+ 	    <com.catglo.taxidroid.ReviewMePreference
+			android:key="ReviewFeedback" android:title="@string/reviewapp"
+			android:summary="@string/youlike"
+			android:dialogTitle="@string/Review" />
+	
+			
+	</PreferenceCategory>
+
+ 
+	
+ 	
+	<EditTextPreference android:key="hourly_rate"
+				android:title="@string/hourly_pay_rate"
+				android:summary="@string/tha_amount_pait_by_store"
+				android:dialogTitle="@string/hourly_pay_rate"
+				android:numeric="decimal"
+				android:inputType="phone" />
+				
+				
+	
+		
+		<ListPreference
+                android:key="StartOfWorkWeek"
+                android:title="@string/StartOfWorkWeek"
+                android:summary="@string/StartOfWorkWeek_diagSum"
+                android:entries="@array/DaysOfTheWeek"
+                android:entryValues="@array/DaysOfWeekValues"
+                android:defaultValue="2"
+                android:dialogTitle="@string/StartOfWorkWeek_diagTitle"
+        />
+        
+	
+
+	<PreferenceScreen android:title="@string/OrderEntrySettings">
+			<CheckBoxPreference android:key="noOrderNumberScreen"
+				android:title="@string/no_order_numbers"
+				android:summary="@string/no_order_numbers_desc" />
+				
+				
+				
+			<EditTextPreference android:key="lastGeneratedOrderNumberString"
+				android:title="@string/Initial_Order_Number"
+				android:summary="@string/Initial_Order_Number_desc"
+				android:dialogTitle="@string/Initial_Order_Number_daigTitle"
+				android:numeric="integer"
+				android:inputType="phone"
+				 />
+					
+
+	        <CheckBoxPreference android:key="noAddressScreen"
+				android:title="@string/No_addresses"
+				android:summary="@string/No_addresses_desc" />
+			
+			 <com.catglo.taxidroid.HelpDialogPreference
+							  android:title="@string/help"
+			                  android:dialogTitle="@string/help"
+			                  android:dialogMessage="@string/orderEntrySettingsHelp"
+			                  android:positiveButtonText="@null"
+			                  android:key="helpOnAltPay"
+			                  android:negativeButtonText="@null"
+			                  android:dialogIcon="@drawable/icon"   
+			                  />			
+
+	</PreferenceScreen>
+
+
+    
+		<PreferenceScreen android:title="Advanced"
+			android:summary="Backup and/or move the order database file to the sdcard.">
+			>
+
+			<EditTextPreference android:key="DatabaseFileCopy"
+				android:title="Backup data" android:summary="Make a backup of the order data on to your sdcard."
+				android:dialogTitle="Database backup file name" />
+
+			<CheckBoxPreference android:key="DatabaseOnSdcard"
+				android:title="Keep data on sdcard"
+				android:summary="Select this if you would like to keep the database on your sdcard." />
+
+		</PreferenceScreen>
+
+	
+
+</PreferenceScreen> 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+android:id="@+id/sewidget29"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+xmlns:android="http://schemas.android.com/apk/res/android"
+>
+
+<LinearLayout android:id="@+id/viewPartLayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_alignParentTop="true" android:gravity="center_horizontal">
+<LinearLayout android:orientation="horizontal"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:id="@+id/textView11" android:text="@string/order_number" android:layout_width="120dip"></TextView>
+    <EditText android:layout_height="wrap_content" android:id="@+id/editText2" android:layout_weight="1" android:layout_width="150dip"></EditText>
+</LinearLayout>
+<LinearLayout android:orientation="horizontal"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:id="@+id/textView10" android:layout_width="120dip" android:text="@string/pickupTime"></TextView>
+    <EditText android:layout_weight="1" android:text="TextView" android:layout_height="wrap_content" android:inputType="time" android:id="@+id/OrderPlacedTime" android:textSize="20sp" android:layout_width="150dip">
+        <requestFocus></requestFocus>
+    </EditText>
+</LinearLayout>
+<LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout1" android:layout_width="wrap_content">
+    <LinearLayout android:layout_height="fill_parent" android:id="@+id/linearLayout2" android:layout_width="fill_parent">
+        <TextView android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/textView2" android:layout_width="120dip" android:text="@string/tripType"></TextView>
+        <AutoCompleteTextView android:layout_height="wrap_content" android:layout_weight="1" android:hint="@string/tripType" android:id="@+id/autoCompleteTextView1" android:layout_width="150dip"></AutoCompleteTextView>
+    </LinearLayout>
+</LinearLayout>
+<LinearLayout android:orientation="horizontal"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content">
+</LinearLayout>
+
+<RelativeLayout  android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20dip" android:gravity="center">
+    <TextView android:layout_height="wrap_content" android:id="@+id/textView4" android:layout_alignParentTop="true" android:layout_width="fill_parent" android:text="@string/pickupAddress"/>
+    <com.catglo.widgets.AddressAutocomplete android:layout_height="wrap_content" android:id="@+id/OrderAddress" android:layout_below="@+id/textView4" android:layout_alignLeft="@+id/textView4" android:layout_alignRight="@+id/textView4" android:layout_width="wrap_content"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_below="@+id/OrderAddress" android:layout_alignLeft="@+id/OrderAddress" android:text="@string/status"></TextView>
+    <Spinner android:id="@+id/spinner1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/textView1" android:layout_alignLeft="@+id/textView1"></Spinner>
+    <TextView android:layout_width="wrap_content" android:text="@string/drops" android:layout_height="wrap_content" android:id="@+id/textView12" android:layout_below="@+id/spinner1" android:layout_alignLeft="@+id/spinner1"></TextView>
+    <LinearLayout android:minHeight="10dip" android:orientation="vertical" android:layout_width="fill_parent" android:layout_below="@+id/textView12" android:layout_alignLeft="@+id/textView12" android:id="@+id/dropOffContainer" android:layout_height="wrap_content"></LinearLayout>
+    <CheckBox android:layout_width="wrap_content" android:id="@+id/checkBox1" android:layout_height="wrap_content" android:layout_above="@+id/textView12" android:layout_toRightOf="@+id/spinner1" android:text="@string/streetHire"></CheckBox>
+</RelativeLayout>
+<TextView android:layout_height="wrap_content" android:text="@string/OrderNotes" android:id="@+id/textView5" android:layout_width="fill_parent"></TextView>
+<EditText android:layout_height="wrap_content" android:singleLine="false" android:layout_width="fill_parent" android:id="@+id/OrderNotes"></EditText>
+
+
+<RelativeLayout  android:layout_width="230dip" android:layout_height="wrap_content" android:layout_marginTop="20dip" android:gravity="center_horizontal">
+    <Button android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/outOfTownCheck2" android:layout_alignLeft="@+id/outOfTownCheck2" android:layout_alignRight="@+id/outOfTownCheck2" android:text="@string/EDITORDER" android:layout_marginTop="40dip"></Button>
+    <Button android:id="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@+id/button1" android:layout_alignTop="@+id/button1" android:layout_alignBottom="@+id/button1" android:text="@string/goBack" />
+</RelativeLayout>
+
+</LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  >
+  
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:background="@drawable/blue_gradent_background_small"
+  android:padding="6dip"
+  android:id="@+id/osTopLayout"
+  android:layout_marginBottom="1dip">
+  
+  
+
+<TextView android:id="@+id/osDate"  android:text="" 
+          android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"/>
+          
+<TextView android:id="@+id/osShift"  android:text="1024" 
+          android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:layout_alignParentRight="true" android:textSize="18sp"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+		  android:text="shift " android:layout_toLeftOf="@+id/osShift" android:textSize="15sp"/>
+
+<TextView android:text="48 " android:id="@+id/osNumberOfDeliveries" 
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_below="@+id/osDate" android:textSize="18sp"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+		  android:layout_toRightOf="@+id/osNumberOfDeliveries"
+		  android:layout_below="@+id/osDate" android:textSize="15sp" android:text="@string/pickups"/>
+
+<View android:layout_width="fill_parent" android:layout_height="2dip" android:id="@+id/osStreightLine1"
+      android:background="#FFFFFFFF" android:layout_below="@+id/osNumberOfDeliveries"/>
+      
+      
+      
+<RelativeLayout  android:layout_width="fill_parent" android:layout_height="wrap_content"
+               android:layout_below="@+id/osStreightLine1" android:orientation="vertical"
+               android:id="@+id/osLinearLayout1" android:layout_marginTop="1dip">
+
+<TextView android:layout_width="90dip" android:id="@+id/osTextMoneyCollected" android:text="Money Collected"
+          android:layout_gravity="right" android:singleLine="true" android:gravity="center_vertical" android:textSize="12sp" android:paddingTop="2dip" android:paddingBottom="2dip" android:layout_marginTop="1dip" android:layout_height="wrap_content"/>      
+
+<TextView android:layout_width="90dip" android:layout_below="@+id/osMoneyCollected"  android:id="@+id/osTextCashCollected" android:text="Cash Collected"
+          android:layout_gravity="right" android:singleLine="true" android:gravity="center_vertical" android:textSize="12sp" android:layout_marginTop="1dip" android:layout_height="wrap_content"/>      
+
+<TextView android:layout_toRightOf="@+id/osMoneyCollected" android:id="@+id/osTextTipsMade" android:text="Tips Made"
+          android:layout_gravity="right" android:singleLine="true" android:textSize="12sp" android:layout_marginTop="1dip" android:layout_height="wrap_content" android:layout_width="90dip"/>      
+          
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@+id/osMoneyCollected" android:id="@+id/CashTipsText" android:text="@string/cashTips" android:layout_marginTop="1dip" android:textSize="12sp" android:layout_below="@+id/osTipsMade"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@+id/osMoneyCollected" android:text="@string/creditTips" android:textSize="12sp" android:layout_marginTop="1dip" android:layout_below="@+id/CashTips" android:id="@+id/osCreditTipsText"></TextView>      
+       
+
+<!--
+
+         Values Money * Page A
+  
+ -->
+
+
+<TextView android:layout_toRightOf="@+id/osTextMoneyCollected" android:layout_height="wrap_content"
+          android:id="@+id/osMoneyCollected" android:layout_gravity="left" android:singleLine="true" android:textColor="#fffbed09" android:textStyle="bold" android:textSize="16sp" android:layout_width="75dip"/>      
+
+<TextView android:layout_below="@+id/osMoneyCollected" android:layout_toRightOf="@+id/osTextCashCollected" android:layout_height="wrap_content"
+          android:id="@+id/osCashCollected" android:layout_gravity="left" android:singleLine="true" android:textColor="#fffbed09" android:textStyle="bold" android:textSize="16sp" android:layout_width="75dip"/>      
+
+<TextView android:layout_toRightOf="@+id/osTextTipsMade" android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:id="@+id/osTipsMade" android:text="7.59"
+          android:layout_gravity="left" android:singleLine="true" android:textColor="#fffbed09" android:textStyle="bold" android:textSize="16sp"/>      
+          
+<TextView android:layout_below="@+id/osTipsMade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@+id/osTextTipsMade" android:singleLine="true" android:text="3.99" android:textColor="#fffbed09" android:textSize="16sp" android:textStyle="bold" android:id="@+id/CashTips"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@+id/osTextTipsMade" android:text="2.33" android:textColor="#fffbed09" android:textSize="16sp" android:textStyle="bold" android:layout_below="@+id/CashTips" android:id="@+id/osCreditTips"></TextView>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_below="@+id/osCashCollected" android:layout_alignParentLeft="true" android:text="@string/commision"></TextView>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_alignTop="@+id/osCreditTipsText" android:layout_alignLeft="@+id/osCashCollected" android:layout_alignBottom="@+id/osCreditTips" android:layout_alignRight="@+id/osCashCollected" android:textColor="#fffbed09" android:textSize="16sp" android:textStyle="bold" ></TextView>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView3" android:layout_below="@+id/textView2" android:layout_alignParentLeft="true" android:text="@string/expences"></TextView>
+<TextView android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView4" android:layout_alignTop="@+id/textView3" android:layout_toRightOf="@+id/osTextCashCollected" android:textColor="#fffbed09" android:textSize="16sp" android:textStyle="bold" ></TextView>      
+       
+
+
+
+
+</RelativeLayout>
+
+
+
+          
+</RelativeLayout>  
+  
+<!-- 
+  
+           Collumn Headings Page A 
+   
+  -->
+
+<TableLayout android:id="@+id/TableLayout05" android:layout_width="fill_parent" android:layout_height="wrap_content"
+             android:background="#FF000000" 
+             android:layout_margin="1dip" android:layout_below="@+id/headingA">
+</TableLayout>
+<ListView android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/DeliveriesSummaryList" android:layout_margin="1dip" android:layout_below="@+id/osTopLayout" android:layout_alignRight="@+id/TableLayout05"></ListView>
+
+</RelativeLayout>
+
+

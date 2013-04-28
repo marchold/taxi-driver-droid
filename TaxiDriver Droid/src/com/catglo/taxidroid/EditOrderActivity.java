@@ -1,0 +1,282 @@
+package com.catglo.taxidroid;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+
+import com.catglo.deliveryDatabase.DropOff;
+import com.catglo.deliveryDatabase.Order;
+import com.catglo.taxidroid.R;
+import com.catglo.widgets.AddressAutocomplete;
+
+
+public class EditOrderActivity extends AddEditOrderBaseActivity {
+	private EditText deliveryTime;
+	private EditText orderTime;
+	private AddressAutocomplete address;
+	private EditText notes;
+	private Order order;
+	private EditText orderNumber;
+	
+	boolean editableForm=false;
+	private Button save;
+	private String[] items;
+	private int dataBasePrimaryKey;
+	
+    static final int TIME_DIALOG_ID = 0;
+    static final int DATE_DIALOG_ID = 1;
+
+   
+    ArrayList<String> suggestionList;
+	private TextWatcher textWatcher;
+	private Spinner orderStatus;
+	private AutoCompleteTextView tripType;
+	private CheckBox streetHire;
+	
+	@Override
+	public void onDestroy(){
+		address.removeTextChangedListener(textWatcher);
+		super.onDestroy();
+	}
+    
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.summary_edit);
+        
+        final Intent i = getIntent();
+		dataBasePrimaryKey = i.getIntExtra("DB Key", -1);
+		order = dataBase.getOrder(dataBasePrimaryKey);
+
+		//Order Number
+		orderNumber = (EditText) findViewById(R.id.editText2);
+		orderNumber.setText(order.number);
+		
+		//Delivery Time
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(order.payedTime.getTime());
+		deliveryTime = (EditText) findViewById(R.id.OrderPlacedTime);
+        deliveryTime.setText(String.format("%tl:%tM %tp", calendar, calendar, calendar, calendar, calendar,
+				calendar, calendar));
+        deliveryTime.setOnTouchListener(new OnTouchListener(){ public boolean onTouch(View arg0, MotionEvent arg1) {
+        	showTimeSliderDialog(deliveryTime,order.payedTime);
+		    return true;
+		}});
+        
+        //Order Time
+        orderTime = (EditText) findViewById(R.id.OrderPlacedTime);
+        calendar.setTimeInMillis(order.time.getTime());
+		orderTime.setText(String.format("%tl:%tM %tp", calendar, calendar, calendar, calendar, calendar, calendar, calendar));
+		orderTime.setOnTouchListener(new OnTouchListener(){ public boolean onTouch(View arg0, MotionEvent arg1) {
+			showTimeSliderDialog(orderTime,order.time);
+		    return true;
+		}});
+	
+        //Address
+        address = (AddressAutocomplete) findViewById(R.id.OrderAddress);
+        address.setText(order.address);
+        address.startSuggestor(dataBase);
+       
+        orderStatus = (Spinner)findViewById(R.id.spinner1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,
+        		new String[] {getString(R.string.waitingForCoustomer),
+        				      getString(R.string.customerInCabButton),
+        				      getString(R.string.complete),
+        				      getString(R.string.cancled),
+        				      getString(R.string.noShow)});
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        orderStatus.setAdapter(adapter);
+        if (order.payed == Order.PAYMENTSTATUS_NOTPAID){
+        	//Either waiting for customer or customer in cab
+        } else
+        if (order.payed == Order.PAYMENTSTATUS_PAID){
+        	orderStatus.setSelection(2);
+        } else
+        if (order.payed == Order.PAYMENTSTATUS_CANCELED){
+        	orderStatus.setSelection(3);
+        } else
+        if (order.payed == Order.PAYMENTSTATUS_NOSHOW){
+        	orderStatus.setSelection(4);
+        }
+        
+    	tripType = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+    	tripType.setAdapter(dataBase.getOrderTypeAdapter());
+    	tripType.setText(order.apartmentNumber);
+    	tripType.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+    		tripType.showDropDown();
+		}});
+        
+        dropOffContainer = (LinearLayout) findViewById(R.id.dropOffContainer);
+        dataBase.loadOrderDropOffs(order);
+        
+       
+        if (order.payed != Order.PAYMENTSTATUS_CANCELED) {
+	        for (int index = 0; index < order.dropOffs.size(); index++){
+	        	final DropOffRow dr = addDropoffRow(R.layout.drop_edit_row);
+	        	final DropOff dropOff = order.dropOffs.get(index);
+	        	
+	        	dr.address.setText(dropOff.address);
+	        	if (order.payed == Order.PAYMENTSTATUS_NOSHOW){
+	        		dr.address.setVisibility(View.GONE);
+	        		dr.addButton.setVisibility(View.GONE);
+	        	}
+	        	dr.dropoffId.setText(dropOff.id+"");
+	        	dr.meterAmount.setText(currency.format(dropOff.meterAmount));
+	        	Calendar c = Calendar.getInstance();
+	        	c.setTimeInMillis(dropOff.time.getTime());
+	        	dr.timestamp.setText(String.format("%tI:%tH %tp %ta", c,c,c,c));
+	        	dr.timestamp.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+	        		showTimeSliderDialog(dr.timestamp,dropOff.time);
+				}});
+	        	dr.payment.setText(currency.format(dropOff.payment));
+	        	
+	        	switch (dropOff.paymentType) {
+	        	case 2: dr.account.setText(dropOff.authorization);
+	        			dr.extraLabel.setText(R.string.AuthorizationNumber);
+	        	break;
+	        	case 3: dr.account.setText(dropOff.account);
+	        	break;
+	        	default: dr.account.setVisibility(View.GONE);
+	        	         dr.extraLabel.setVisibility(View.GONE);
+	        	break;
+	        	}
+	        	
+	        	if (dropOff.paymentType > 3) dropOff.paymentType = 3;//Temporary should not be necessary
+	        	
+	        	dr.paymentType.setSelection(dropOff.paymentType);
+	        }
+        }
+        
+        //Notes
+        notes = (EditText) findViewById(R.id.OrderNotes);
+        notes.setText(order.notes);
+        
+        streetHire = (CheckBox) findViewById(R.id.checkBox1);
+		streetHire.setChecked(order.streetHail);
+			
+		//Save Button
+		save = (Button)findViewById(R.id.button1);
+		save.setOnClickListener(new View.OnClickListener() {public void onClick(final View v){	
+			if (editableForm) {
+				order.address = address.getEditableText().toString();
+				order.number  = orderNumber.getEditableText().toString();
+				order.notes   = notes.getEditableText().toString();
+				order.apartmentNumber = tripType.getEditableText().toString();	
+				order.streetHail = streetHire.isChecked();
+				
+				for (int i = 0; i < dropOffRows.size(); i++){
+					DropOffRow form;
+					form = dropOffRows.get(i);
+					if (form.dropoffId.getText().length()==0){
+						Calendar now = Calendar.getInstance();
+						now.setTimeInMillis(System.currentTimeMillis());
+						dataBase.addDropoff(order.primaryKey, form.address.getEditableText().toString(), now);
+					} else {
+						DropOff d = order.dropOffs.get(i);
+						d.paymentType = form.paymentType.getSelectedItemPosition();
+						try {
+							d.meterAmount = new Float(form.meterAmount.getEditableText().toString());
+						} catch (NumberFormatException e){};
+						try {
+							d.payment = new Float(form.payment.getEditableText().toString());
+						}catch (NumberFormatException e){};
+						d.address = form.address.getEditableText().toString();	
+					}
+				}
+				dataBase.edit(order);
+				
+				setResult(100);
+				finish();
+			} else {
+				save.setText(getString(R.string.Save_Changes));
+				editableForm=true;
+				setControlesEditable(editableForm);
+			}
+		}});
+		
+		//Go Back Button
+		((Button)findViewById(R.id.button2)).setOnClickListener(new View.OnClickListener() {public void onClick(final View v){	
+			setResult(100);
+			finish();
+		}});
+		
+		setControlesEditable(editableForm);
+		
+
+		  
+    }
+    
+    private int convertPaymentTypeToOrder(int type){
+		switch (type) {
+			default:
+			case 0: return Order.NOT_PAID;
+			case 1: return Order.CASH;
+			case 2: return Order.CHECK;
+			case 3: return Order.CREDIT;
+			case 4: return Order.EBT;
+		}
+    }
+
+    private void setPaymentType(Spinner spinner, Float p, String hint, int threshold, EditText payment) {
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, items);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+		if (p < threshold) {
+			payment.setText("");
+			payment.setHint(hint);
+			spinner.setSelection(0);
+		} else {
+			payment.setText(currency.format(p));
+			switch (order.paymentType) {
+			case Order.EBT:
+				spinner.setSelection(4);
+				break;
+			case Order.CHECK:
+				spinner.setSelection(2);
+				break;
+			case Order.CREDIT:
+				spinner.setSelection(3);
+				break;
+			default:
+			case Order.CASH:
+				spinner.setSelection(1);
+			}
+		}
+	}
+    
+   
+    
+    
+	
+		
+    private void setControlesEditable(boolean enabled)
+    {
+    	deliveryTime.setEnabled(enabled);
+        orderTime.setEnabled(enabled);
+        deliveryTime.setFocusableInTouchMode(enabled);
+        orderTime.setFocusableInTouchMode(enabled);
+    	address.setFocusableInTouchMode(enabled);
+    	notes.setFocusableInTouchMode(enabled);
+    	orderNumber.setFocusableInTouchMode(enabled);
+  
+    }
+    
+}

@@ -1,0 +1,47 @@
+ <LinearLayout
+    	android:orientation="vertical"
+     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/linearLayout1">
+
+ <LinearLayout
+    	android:orientation="horizontal"
+     android:layout_height="wrap_content" android:id="@+id/relativeLayout1" android:layout_width="fill_parent">
+     <com.catglo.widgets.AddressAutocomplete
+      
+      android:id="@+id/addressAutocomplete1" android:layout_height="wrap_content" android:layout_width="fill_parent" android:hint="@string/dropOffAddress"></com.catglo.widgets.AddressAutocomplete>
+        <TextView android:text="@string/blank" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/idField" android:visibility="gone"></TextView>
+    </LinearLayout>
+    <TableLayout android:id="@+id/TableLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_marginBottom="15dip">
+        <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout2" android:orientation="vertical" android:layout_width="wrap_content">
+                    <TextView android:text="@string/meterAmount" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView1"></TextView>
+                    <EditText android:layout_height="wrap_content" android:id="@+id/editText3" android:layout_width="125dip"></EditText>
+                </LinearLayout>
+            </TableRow>
+            <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout4" android:orientation="vertical" android:layout_width="wrap_content">
+                <TextView android:text="@string/time" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView5"></TextView>
+                <EditText android:inputType="time" android:layout_height="wrap_content" android:id="@+id/timeStampEditField" android:layout_width="150dip"></EditText>
+            </LinearLayout>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout3" android:layout_width="wrap_content" android:orientation="vertical">
+                <TextView android:text="@string/Payment" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView3"></TextView>
+                <EditText android:inputType="phone" android:layout_height="wrap_content" android:id="@+id/editText1" android:layout_width="125dip" android:numeric="decimal"></EditText>
+            </LinearLayout>
+            <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout5" android:layout_width="fill_parent" android:orientation="vertical">
+                <TextView android:text="@string/paymentType" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
+                <Spinner android:layout_height="wrap_content" android:layout_width="175dip" android:id="@+id/spinner1"></Spinner>
+            </LinearLayout>
+        </TableRow>
+        <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow4" android:layout_width="wrap_content">
+            <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout6" android:orientation="vertical" android:layout_width="wrap_content">
+                <TextView android:text="@string/account" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/variableLabel"></TextView>
+                <EditText android:layout_height="wrap_content" android:id="@+id/editText2" android:layout_width="fill_parent">
+                    <requestFocus></requestFocus>
+                </EditText>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+    
+    
+    </LinearLayout>

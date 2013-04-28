@@ -1,0 +1,83 @@
+package com.catglo.taxidroid;
+
+import com.catglo.deliveryDatabase.DataBase;
+import com.catglo.deliveryDatabase.Order;
+import com.catglo.widgets.R;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Button;
+import android.widget.TextView;
+
+
+public class PaymentDialogBase extends Dialog {
+	 
+	protected EditText meterAmount;
+	protected TextView extraLabel;
+	protected EditText extraField;
+	protected DataBase dataBase;
+	protected int paymentType; 
+	protected EditText paymentAmount;
+	protected Runnable runOnDialogSave;
+	protected int layoutId;
+
+	public PaymentDialogBase(Context context, DataBase dataBase, Runnable runOnDialogSave,int layoutId) {
+		super(context);
+		this.dataBase = dataBase;
+		this.runOnDialogSave = runOnDialogSave;
+		this.layoutId = layoutId;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);		
+		setContentView(layoutId);
+		
+		paymentAmount = (EditText)findViewById(R.id.editText2);
+		
+		extraLabel = (TextView) findViewById(R.id.textView3);
+		extraField = (EditText) findViewById(R.id.editText3);
+		extraLabel.setVisibility(View.GONE);
+		extraField.setVisibility(View.GONE);
+		paymentType = AddEditOrderBaseActivity.CASH_PAYMENT;
+
+		
+		RadioButton cashButton = (RadioButton) findViewById(R.id.radio0);
+		cashButton.setOnCheckedChangeListener(new OnCheckedChangeListener(){public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			if (isChecked){
+				extraLabel.setVisibility(View.GONE);
+				extraField.setVisibility(View.GONE);
+				paymentType = AddEditOrderBaseActivity.CASH_PAYMENT;
+			}
+		}});
+		
+		RadioButton creditButton = (RadioButton) findViewById(R.id.radio1);
+		creditButton.setOnCheckedChangeListener(new OnCheckedChangeListener(){public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			if (isChecked){
+				extraLabel.setVisibility(View.VISIBLE);
+				extraField.setVisibility(View.VISIBLE);
+				extraLabel.setText(R.string.AuthorizationNumber);
+				paymentType = AddEditOrderBaseActivity.CREDIT_PAYMENT;
+			}
+		}});
+		
+		RadioButton accountButton = (RadioButton) findViewById(R.id.radio2);
+		accountButton.setOnCheckedChangeListener(new OnCheckedChangeListener(){public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			if (isChecked){
+				extraLabel.setVisibility(View.VISIBLE);
+				extraField.setVisibility(View.VISIBLE);
+				extraLabel.setText(R.string.account);
+				paymentType = AddEditOrderBaseActivity.ACCOUNT_PAYMENT;
+			}
+		}});
+	
+		
+	}
+}

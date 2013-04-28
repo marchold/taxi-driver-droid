@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>TaxiDriver Droid Paid</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.android.ide.eclipse.adt.ResourceManagerBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.android.ide.eclipse.adt.PreCompilerBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.android.ide.eclipse.adt.ApkBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>CatgloWidgets_src</name>
+			<type>2</type>
+			<locationURI>_android_CatgloWidgets_6265af5b/src</locationURI>
+		</link>
+		<link>
+			<name>DeliveryDatabase_src</name>
+			<type>2</type>
+			<locationURI>_android_DeliveryDatabase_114ba1af/src</locationURI>
+		</link>
+		<link>
+			<name>TaxiDriver Droid_src</name>
+			<type>2</type>
+			<locationURI>_android_TaxiDriver_Droid_6b523dc2/src</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

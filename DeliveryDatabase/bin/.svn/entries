@@ -1,0 +1,44 @@
+10
+
+dir
+63
+svn://192.168.1.29/DeliveryDatabase/src
+svn://192.168.1.29
+delete
+
+
+2011-07-08T23:38:26.766624Z
+63
+marc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7a350cc7-2600-4ebe-9337-5aae767063e0
+
+
+
+
+
+
+
+
+((conflict com dir update edited deleted (version svn://192.168.1.29 1 4 DeliveryDatabase/src/com none) (version svn://192.168.1.29 2 62 DeliveryDatabase/src/com dir)))
+
+com
+dir
+
+
+
+delete
+
